@@ -22,6 +22,7 @@ public class ItemRepository {
     private final String SQL_INSERT = "insert into item(id,name,description,price,created,modified) values(?,?,?,?,?,?)";
     private final String SQL_QUERY_ALL = "select * from item";
     private final String SQL_QUERY_BY_ID = "select * from item where id=?";
+    private final String SQL_QUERY_BY_NAME = "select * from item where name=?";
 
     private final RowMapper<Item> rowMapper = (ResultSet rs, int row) -> {
         Item item = new Item();
@@ -64,5 +65,9 @@ public class ItemRepository {
 
     public Item findOne(String id) {
         return this.jdbcTemplate.queryForObject(SQL_QUERY_BY_ID, new Object[]{id}, rowMapper);
+    }
+    
+    public Item findByName(String name) {
+        return this.jdbcTemplate.queryForObject(SQL_QUERY_BY_NAME, new Object[]{name}, rowMapper);
     }
 }

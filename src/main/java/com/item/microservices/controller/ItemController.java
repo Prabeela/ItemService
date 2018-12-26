@@ -3,6 +3,8 @@ package com.item.microservices.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,15 +25,23 @@ public class ItemController {
 	
 	@Autowired
 	ItemRepository itemRepository;
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
     @GetMapping("/service2/items")
     public List<Item> items() {
         return itemRepository.findAll();
     }
 
-    @GetMapping("/service2/item/{id}")
-    public Item customer(@PathVariable("id") String id) {
+    @GetMapping("/service2/itemById/{id}")
+    public Item itemById(@PathVariable("id") String id) {
         return itemRepository.findOne(id);
+    }
+    
+    @GetMapping("/service2/item/{name}")
+    public Item itemByName(@PathVariable("name") String name) {
+    	
+    	logger.debug("Fetching item details from the Item database for itemname ::"+name);
+        return itemRepository.findByName(name);
     }
 
     @PostMapping("/service2/item")
