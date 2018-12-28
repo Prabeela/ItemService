@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import com.item.microservices.repository.ItemRepository;
 
 
 @RestController
+@RefreshScope
 public class ItemController {
 	
 	@Autowired
@@ -29,11 +31,13 @@ public class ItemController {
 	
     @GetMapping("/service2/items")
     public List<Item> items() {
+    	logger.debug("Retrieving items from item repository ");
         return itemRepository.findAll();
     }
 
     @GetMapping("/service2/itemById/{id}")
     public Item itemById(@PathVariable("id") String id) {
+    	logger.debug("Retrieving item by ID from item repository ::"+id);
         return itemRepository.findOne(id);
     }
     
@@ -54,7 +58,7 @@ public class ItemController {
                 .fromCurrentRequest().path("/" + _item.getId())
                 .buildAndExpand().toUri());
 
-       
+        logger.debug("Adding new items to item table ::"+_item.getId());
        
         return new ResponseEntity<>(_item, httpHeaders, HttpStatus.CREATED);
     }

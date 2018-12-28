@@ -1,0 +1,9 @@
+---
+applications:
+- name: item-service-541455
+  memory: 1G
+  instances: 3
+  path: target/itemservice-0.0.1-SNAPSHOT.jar
+  services:
+  - ConfigServer-541455
+  - service-registry-541455
