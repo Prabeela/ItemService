@@ -1,7 +1,10 @@
 package com.item.microservices.controller;
 
 
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +13,12 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,7 +32,18 @@ public class ItemController {
 	
 	@Autowired
 	ItemRepository itemRepository;
+	DBInfo dbinfo;
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	
+	
+	public ItemController(DBInfo dbinfo){
+		this.dbinfo = dbinfo;
+	}
+	
+	@GetMapping("/service2/dbinfo")
+	public DBInfo getInfo(){
+		return this.dbinfo;
+	}
 	
     @GetMapping("/service2/items")
     public List<Item> items() {
@@ -64,3 +80,16 @@ public class ItemController {
     }
 }
 
+
+@Component
+class DBInfo {
+	private String url;
+
+	public DBInfo(DataSource dataSource) throws SQLException{
+		this.url = dataSource.getConnection().getMetaData().getURL();
+	}
+
+	public String getUrl() {
+		return url;
+	}
+}

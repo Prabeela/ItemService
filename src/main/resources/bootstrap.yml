@@ -2,7 +2,7 @@ server:
   port: 8787
 spring:
   application:
-    name: item-service-541455
+    name: 541455-item-service
 
 #logging: # <----New sections below
   #level:

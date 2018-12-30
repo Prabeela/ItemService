@@ -1,9 +1,10 @@
 ---
 applications:
-- name: item-service-541455
+- name: 541455-item-service
   memory: 1G
-  instances: 3
+  instances: 1
   path: target/itemservice-0.0.1-SNAPSHOT.jar
   services:
-  - ConfigServer-541455
-  - service-registry-541455
+  - amqp
+  - mysqlService
+  - serviceregistry

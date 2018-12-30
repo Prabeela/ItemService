@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS item;
+DROP TABLE IF EXISTS item_541455;
 
-CREATE TABLE item
+CREATE TABLE item_541455
 (
     id varchar(36) NOT NULL,
     name varchar(200) NOT NULL,

@@ -19,10 +19,10 @@ public class ItemRepository {
 
 	private final JdbcTemplate jdbcTemplate;
 
-    private final String SQL_INSERT = "insert into item(id,name,description,price,created,modified) values(?,?,?,?,?,?)";
-    private final String SQL_QUERY_ALL = "select * from item";
-    private final String SQL_QUERY_BY_ID = "select * from item where id=?";
-    private final String SQL_QUERY_BY_NAME = "select * from item where name=?";
+    private final String SQL_INSERT = "insert into item_541455(id,name,description,price,created,modified) values(?,?,?,?,?,?)";
+    private final String SQL_QUERY_ALL = "select * from item_541455";
+    private final String SQL_QUERY_BY_ID = "select * from item_541455 where id=?";
+    private final String SQL_QUERY_BY_NAME = "select * from item_541455 where name=?";
 
     private final RowMapper<Item> rowMapper = (ResultSet rs, int row) -> {
         Item item = new Item();
