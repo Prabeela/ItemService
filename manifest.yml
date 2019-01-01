@@ -2,7 +2,7 @@
 applications:
 - name: 541455-item-service
   memory: 1G
-  instances: 1
+  instances: 2
   path: target/itemservice-0.0.1-SNAPSHOT.jar
   services:
   - amqp
